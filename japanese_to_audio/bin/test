@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+ENV["AUDIO_OUTPUT_FOLDER"] = "./test"
+ENV["AWS_REGION"] = "us-east-2"
+ENV["AWS_ACCESS_KEY_ID"] = "test-access-key"
+ENV["AWS_SECRET_ACCESS_KEY"] = "test-secret-access-key"
+
+Dir["#{Dir.pwd}/test/**/*.rb"].each do |file|
+  require(file) if File.basename(file).include?("_test")
+end

@@ -1,0 +1,7 @@
+tmp/log.txt
+tmp/.env
+tmp/*.mp3
+tmp/*.mp4
+db/local.db
+db/local-test.db
+csv/*.csv

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Load up your environment variables
+. ./tmp/.env
+
+if [ -n "$EMAIL_RECIPIENT" ] && [ -n "$EMAIL_SENDER" ]
+then
+  echo "Generating email report..."
+  SCRIPT_ENV=development bundle exec rake db:report_totals_to_email
+elif [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ] && [ -n "$AWS_SNS_ARN" ]
+then
+  echo "Generating report for SNS..."
+  SCRIPT_ENV=development bundle exec rake db:report_totals_to_sns
+else
+  echo "Oops! Looks like no supported reporting services are configured."
+fi

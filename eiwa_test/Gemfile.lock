@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    eiwa (0.1.0)
+      nokogiri
+    nokogiri (1.12.5-x86_64-darwin)
+      racc (~> 1.4)
+    racc (1.6.0)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  eiwa
+
+RUBY VERSION
+   ruby 3.0.2p107
+
+BUNDLED WITH
+   2.2.29

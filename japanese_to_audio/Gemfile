@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+ruby "3.0.3"
+
+gem "aws-sdk-polly"
+
+gem "test-unit"
+gem "vcr"
+gem "webmock"
+gem "mocha"
+gem "pry"

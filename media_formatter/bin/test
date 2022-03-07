@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "test"
+
+require "test/unit"
+require "mocha/test_unit"
+require "fileutils"
+require_relative "../lib/module_loader.rb"
+
+INBOX_DIRECTORY = "test/fixture_files/inbox"
+IMAGE_WATCH_DIRECTORY = "test/fixture_files"
+BACKUP_IMAGE_FILES_PATH = "test/fixture_files/backups"
+AUDIO_WATCH_DIRECTORY = "test/fixture_files"
+AUDIO_DEPOSIT_DIRECTORY = "test/fixture_files/processed_audio"
+BACKUP_AUDIO_FILES_PATH = "test/fixture_files/backups"
+
+Test::Unit.at_start do
+  # this setup runs once at the start
+  Dir.mkdir(BACKUP_IMAGE_FILES_PATH) unless Dir.exist?(BACKUP_IMAGE_FILES_PATH)
+  Dir.mkdir(AUDIO_DEPOSIT_DIRECTORY) unless Dir.exist?(AUDIO_DEPOSIT_DIRECTORY)
+  Dir.mkdir(BACKUP_AUDIO_FILES_PATH) unless Dir.exist?(BACKUP_AUDIO_FILES_PATH)
+  Dir.mkdir(INBOX_DIRECTORY)         unless Dir.exist?(INBOX_DIRECTORY)
+end
+
+Test::Unit.at_exit do
+  # this setup runs once at the very end of the test
+  FileUtils.rm_rf(BACKUP_IMAGE_FILES_PATH) if Dir.exist?(BACKUP_IMAGE_FILES_PATH)
+  FileUtils.rm_rf(AUDIO_DEPOSIT_DIRECTORY) if Dir.exist?(AUDIO_DEPOSIT_DIRECTORY)
+  FileUtils.rm_rf(BACKUP_AUDIO_FILES_PATH) if Dir.exist?(BACKUP_AUDIO_FILES_PATH)
+  FileUtils.rm_rf(INBOX_DIRECTORY)         if Dir.exist?(INBOX_DIRECTORY)
+end
+
+Dir["#{Dir.pwd}/**/*.rb"].each do |file|
+  require(file) if File.basename(file).include?("_test")
+end

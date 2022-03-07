@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "development"
+require_relative "../lib/module_loader.rb"
+
+ORDERED_CSV_FIELDS = [
+  :character,
+  :status
+]
+
+CSV.open("export-#{Time.now.to_i}.csv", "wb") do |csv|
+  csv << ORDERED_CSV_FIELDS # add CSV headers
+  Kanji.find_each(order: :asc) do |kanji|
+    csv << ORDERED_CSV_FIELDS.map { |attr| kanji.send(attr) }
+  end
+end

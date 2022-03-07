@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# This script is an alias for `./bin/run`
+exec ./bin/run

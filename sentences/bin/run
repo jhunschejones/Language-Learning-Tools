@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Load up your environment variables
+. ./tmp/.env
+
+# Run the script
+clear && SCRIPT_ENV=development exec bundle exec ruby -r ./lib/module_loader.rb -e "Cli.new.run"

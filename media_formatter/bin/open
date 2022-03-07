@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# To open in new tabs set `System preferences > General > Prefer tabs: always`
+open ~/Downloads/Japanese/Card\ Images
+open ~/Downloads/Japanese/Card\ Audio
+open ~/Downloads/Japanese/Media\ Downloads

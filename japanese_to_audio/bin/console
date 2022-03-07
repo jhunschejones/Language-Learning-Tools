@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Starting console..."
+. ./tmp/.env && irb -r ./lib/module_loader.rb

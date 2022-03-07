@@ -1,0 +1,74 @@
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test_kanji_list:
+    name: Kanji List Unit Tests
+    runs-on: macos-11
+    defaults:
+      run:
+        working-directory: kanji_list
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/kanji_list/Gemfile
+      SCRIPT_ENV: test
+      RAKE_ENV: test
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.3'
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec ./bin/test
+
+  test_media_formatter:
+    name: Media Formatter Unit Tests
+    runs-on: macos-11
+    defaults:
+      run:
+        working-directory: media_formatter
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/media_formatter/Gemfile
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1.1'
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install ImageMagick
+      run: brew install imagemagick
+    - name: Run tests
+      run: bundle exec ./bin/test
+
+  test_japanese_to_audio:
+    name: Japanese To Audio Unit Tests
+    runs-on: macos-11
+    defaults:
+      run:
+        working-directory: japanese_to_audio
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/japanese_to_audio/Gemfile
+      AWS_REGION: "us-east-2"
+      AWS_ACCESS_KEY_ID: "test-access-key"
+      AWS_SECRET_ACCESS_KEY: "test-secret-access-key"
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0.3'
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec ./bin/test

@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "development"
+require_relative "../lib/module_loader.rb"
+
+ORDERED_CSV_FIELDS = [
+  :japanese_word,
+  :japanese_sentence,
+  :english_sentence,
+  :pcloud_file_id,
+  :pcloud_download_url,
+  :created_at
+]
+
+CSV.open("./csv/export-#{Time.now.to_i}.csv", "wb") do |csv|
+  csv << ORDERED_CSV_FIELDS # add CSV headers
+  Sentence.find_each(order: :asc) do |sentence|
+    csv << ORDERED_CSV_FIELDS.map { |attr| sentence.send(attr) }
+  end
+end

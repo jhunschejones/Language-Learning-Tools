@@ -1,0 +1,8 @@
+tmp/log.txt
+tmp/.env
+db/local.db
+db/local-test.db
+db/kanji_list_dump.yml
+db/test_kanji_list_dump.yml
+config/word_list.yml
+config/test_word_list.yml

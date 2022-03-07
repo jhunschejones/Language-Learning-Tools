@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "test"
+ENV["RAKE_ENV"] = "test"
+ENV["PCLOUD_API_DATA_REGION"] = "EU"
+ENV["PCLOUD_API_ACCESS_TOKEN"] = "test-token" # Not used in tests
+
+Dir["#{Dir.pwd}/**/*.rb"].each do |file|
+  require(file) if File.basename(file).include?("_test")
+end

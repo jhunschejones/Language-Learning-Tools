@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require_relative '../lib/module_loader'
+NOT_JAPANESE_REGEX = /[^一-龯ぁ-んァ-ン]/.freeze
+
+words = []
+Dir.glob("./decks/**/*.txt").each do |file_name|
+  File.readlines(file_name).each do |line|
+    next if line.to_s.empty?
+    word = line.split.first.gsub(NOT_JAPANESE_REGEX, "")
+    words << word unless word.empty?
+  end
+end
+
+puts "#{words.size} words found:".cyan
+puts words.join(", ")

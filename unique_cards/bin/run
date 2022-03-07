@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require_relative '../lib/module_loader'
+
+system "clear"
+puts "=======  Welcome to Unique Cards!  =======".cyan
+CLI.new.run

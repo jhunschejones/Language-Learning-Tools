@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "development"
+require_relative "../lib/module_loader.rb"
+
+puts "Drop a CSV file here to import:"
+print "> "
+csv_file_path = $stdin.gets.chomp.strip.gsub("\\", "")
+
+sentences_added = 0
+
+CSV.foreach(csv_file_path, headers: true) do |row|
+  sentence = Sentence.new(
+    japanese_word: row[0],
+    japanese_sentence: row[1],
+    english_sentence: row[2],
+    pcloud_file_id: row[3],
+    pcloud_download_url: row[4],
+    created_at: row[5]
+  )
+  if sentence.save
+    sentences_added += 1
+  end
+end
+
+puts "#{sentences_added} #{sentences_added == 1 ? "sentence" : "sentences"} added".green

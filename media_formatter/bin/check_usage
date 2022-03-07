@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require_relative '../lib/module_loader'
+
+unless ENV["TINIFY_API_KEY"]
+  # try to read key from `.env` file if it's not set yet
+  ENV["TINIFY_API_KEY"] = File.read("./tmp/.env").match(/TINIFY_API_KEY="(\w+)"/)[1]
+end
+
+Tinify.key = ENV["TINIFY_API_KEY"]
+Tinify.validate!
+
+compression_count = Tinify.compression_count
+message =
+  if compression_count == 1
+    "You have used 1 compression this month."
+  else
+    "You have used #{compression_count} compressions this month."
+  end
+
+puts message.cyan
