@@ -1,6 +1,6 @@
 # Japanese To Audio
 
-[![CI](https://github.com/jhunschejones/Ruby-Scripts/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jhunschejones/Ruby-Scripts/actions/workflows/ci.yml)
+[![CI](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml)
 
 ### Overview
 This script will convert a Japanese sentence or word into an MP3 audio file using Amazon Polly.

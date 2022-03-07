@@ -1,6 +1,6 @@
 # Media Formatter
 
-[![CI](https://github.com/jhunschejones/Ruby-Scripts/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jhunschejones/Ruby-Scripts/actions/workflows/ci.yml)
+[![CI](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml)
 
 ### Overview
 Media Formatter is a script that I run in the console while creating flashcards for learning Japanese. As a part of my card creation process, I download pneumonic images for each new word I'm learning. Previously, I was re-sizing and optimizing the files by hand after downloading them. This required a lot of clicks per flashcard and subtly burned down my energy in the background with hundreds of small, repetitive decisions over a single card-creation session.
