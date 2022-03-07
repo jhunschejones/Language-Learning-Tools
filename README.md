@@ -1,6 +1,6 @@
 # Language Learning Tools
 
-This repository holds scripts I've used or am currently using for Japanese language learning. Many of these tools were first created in my general [Ruby Scripts](https://github.com/jhunschejones/Language-Learning-Tools) repo, but I've extracted them here to provide a more focused collection for myself and others.
+This repository holds scripts I've used or am currently using for Japanese language learning. Many of these tools were first created in my general [Ruby Scripts](https://github.com/jhunschejones/Ruby-Scripts) repo, but I've extracted them here to provide a more focused collection for myself and others.
 
 ## Key Contents
 * [`kanji_list`](https://github.com/jhunschejones/Language-Learning-Tools/tree/main/kanji_list): A character tracking script for learning Japanese kanji
