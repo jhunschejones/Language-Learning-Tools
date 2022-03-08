@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
-
+ActiveRecord::Schema[7.0].define(version: 1) do
   create_table "sentences", force: :cascade do |t|
     t.string "japanese_word"
     t.text "japanese_sentence", null: false
     t.text "english_sentence", null: false
     t.bigint "pcloud_file_id", null: false
     t.string "pcloud_download_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["japanese_sentence"], name: "index_sentences_on_japanese_sentence", unique: true
     t.index ["pcloud_file_id"], name: "index_sentences_on_pcloud_file_id", unique: true
   end
