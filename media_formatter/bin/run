@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ "$1" == "open" ]]
+then
+  ./bin/open
+fi
+
 bundle install --quiet && \
 . ./tmp/.env && \
 clear && \
