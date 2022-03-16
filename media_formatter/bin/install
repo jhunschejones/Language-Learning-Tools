@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Installing supporting packages..."
+brew install imagemagick svgo jonof/kenutils/pngout coreutils ffmpeg
+
+echo "Installing script dependencies..."
+bundle install
