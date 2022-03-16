@@ -22,15 +22,10 @@ class Image
       end
 
       if image.filesize_kb > TARGET_FILESIZE_KB
-        begin
-          log("====== Tinyifying #{filename} ======".green)
-          create_temp_file
-          tinyify_image
-          backup_origional_image
-        rescue => e
-          log("Unable to tinyify #{filename}: #{e.message}".red)
-        end
-
+        log("====== Tinyifying #{filename} ======".green)
+        create_temp_file
+        tinyify_image
+        backup_origional_image
         clean_up_temp_file
         return true
       end
@@ -61,11 +56,9 @@ class Image
 
     def tinyify_image
       processed_file_name = safe_tinyified_file_name
-      if ENV["DRY_RUN"]
-        puts "... Bleep bloop blap ...".magenta
-      else
-        Tinify.from_file(filename).to_file(processed_file_name)
-      end
+      FileUtils.mv(
+        ImageOptim.new.optimize_image(image.filename), processed_file_name
+      )
       processed_file_name
     end
 
