@@ -2,8 +2,8 @@ require "yaml"
 require "logger"
 require "fileutils"
 require "filewatcher"
-require "tinify"
 require "mini_magick"
+require "image_optim"
 
 Dir["#{File.dirname(__FILE__)}/**/*.rb"].each do |file|
   require(file) unless File.basename(file) == "main.rb"

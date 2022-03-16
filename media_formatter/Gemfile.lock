@@ -2,30 +2,42 @@ GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.1.3)
+    exifr (1.3.9)
     filewatcher (2.0.0.beta5)
-    httpclient (2.8.3)
+    fspath (3.1.2)
+    image_optim (0.31.1)
+      exifr (~> 1.2, >= 1.2.2)
+      fspath (~> 3.0)
+      image_size (>= 1.5, < 4)
+      in_threads (~> 1.3)
+      progress (~> 3.0, >= 3.0.1)
+    image_optim_pack (0.8.0.20220131)
+      fspath (>= 2.1, < 4)
+      image_optim (~> 0.19)
+    image_size (3.0.1)
+    in_threads (1.6.0)
     method_source (1.0.0)
     mini_magick (4.11.0)
     mocha (1.13.0)
     power_assert (2.0.1)
+    progress (3.6.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     test-unit (3.5.3)
       power_assert
-    tinify (1.5.1)
-      httpclient (~> 2.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   filewatcher (~> 2.0.0.beta5)
+  image_optim
+  image_optim_pack
   mini_magick
   mocha
   pry
   test-unit
-  tinify
 
 RUBY VERSION
    ruby 3.1.1p18

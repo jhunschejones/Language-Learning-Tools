@@ -5,6 +5,7 @@ class Image::ProcessorTest < Test::Unit::TestCase
 
     @test_file = "test/fixture_files/goats_in_action_test.jpeg"
     @resized_test_file = "test/fixture_files/goats_in_action_test#{Image::Filename::RESIZED_SUFFIX}.jpeg"
+    @resized_tinyfied_test_file = "test/fixture_files/goats_in_action_test#{Image::Filename::RESIZED_SUFFIX}#{Image::Filename::TINYIFIED_IMAGE_SUFFIX}.jpeg"
     @backed_up_test_file = "test/fixture_files/backups/goats_in_action_test.jpeg"
     FileUtils.cp("test/fixture_files/goats_in_action.jpeg", @test_file)
   end
@@ -15,6 +16,7 @@ class Image::ProcessorTest < Test::Unit::TestCase
 
     File.delete(@test_file) if File.exist?(@test_file)
     File.delete(@resized_test_file) if File.exist?(@resized_test_file)
+    File.delete(@resized_tinyfied_test_file) if File.exist?(@resized_tinyfied_test_file)
   end
 
   def test_process_event_backs_up_the_origional_image
@@ -30,12 +32,10 @@ class Image::ProcessorTest < Test::Unit::TestCase
   end
 
   def test_process_event_tinyfies_images_that_are_too_large
-    mock_tinify_builder = mock
-    mock_tinify_builder.expects(:to_file).once
-    Tinify.expects(:from_file).once.returns(mock_tinify_builder)
-
+    refute File.exist?(@resized_tinyfied_test_file)
     Image::Processor.new(@test_file, :created).process_event
     Image::Processor.new(@resized_test_file, :created).process_event
+    assert File.exist?(@resized_tinyfied_test_file)
   end
 
   def test_process_event_does_not_modify_images_that_are_already_the_right_size
