@@ -15,7 +15,7 @@ Media Formatter helps with this process by watching the directory where I downlo
 3. Install the required image processing utilities with `brew install imagemagick svgo jonof/kenutils/pngout`
 4. For the script timeout functionality, install with `brew install coreutils`
 
-Once this setup is complete, simply start the script with `./bin/run`, download images to the `IMAGE_WATCH_DIRECTORY` and observe Media Formatter doing it's work! To run the script without actually making calls to the Tinyify API, use `DRY_RUN=true ./bin/run`. NOTE: The `./bin/run` command includes an auto-timeout that closes the script after 90 minutes since I always forget to stop it after I'm done.
+Once this setup is complete, simply start the script with `./bin/run`, download images to the `IMAGE_WATCH_DIRECTORY` and observe Media Formatter doing it's work! If you prefer to use the tinypng API rather than on-device image optimization, you will also need a [Tinyify API key](https://tinypng.com/developers) exported as the `TINIFY_API_KEY` environment variable. You may then run the script with `USE_TINYPNG=true ./bin/run`.
 
 #### Working with audio
 I am currently working on a second portion of this script which processes audio clips. To use this part of the app you will need to `brew install ffmpeg` if you haven't already. With some versions of xcode cli tools, you may also find that you need to disable Library Validation for ffmpeg to work properly.

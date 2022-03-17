@@ -38,6 +38,19 @@ class Image::ProcessorTest < Test::Unit::TestCase
     assert File.exist?(@resized_tinyfied_test_file)
   end
 
+  def test_process_event_tinyfies_images_using_tinyfy_that_are_too_large
+    mock_tinify_builder = mock
+    mock_tinify_builder.expects(:to_file).once
+    ENV["USE_TINYPNG"] = "true"
+
+    Tinify.expects(:from_file).once.returns(mock_tinify_builder)
+
+    Image::Processor.new(@test_file, :created).process_event
+    Image::Processor.new(@resized_test_file, :created).process_event
+
+    ENV.delete("USE_TINYPNG") # cleanup after test
+  end
+
   def test_process_event_does_not_modify_images_that_are_already_the_right_size
     unprocessed_small_test_file = "test/fixture_files/goat_at_rest.jpeg"
     resized_small_test_file = "test/fixture_files/goat_at_rest#{Image::Filename::RESIZED_SUFFIX}.jpeg"

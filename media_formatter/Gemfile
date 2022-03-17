@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.1.1"
 
 gem "filewatcher", "~> 2.0.0.beta5"
+gem "tinify"
 gem "mini_magick"
 gem "image_optim"
 gem "image_optim_pack"

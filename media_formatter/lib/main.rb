@@ -18,6 +18,13 @@ FileUtils.mkdir_p(INBOX_DIRECTORY) unless Dir.exist?(INBOX_DIRECTORY)
 FileUtils.mkdir_p(BACKUP_IMAGE_FILES_PATH) unless Dir.exist?(BACKUP_IMAGE_FILES_PATH)
 FileUtils.mkdir_p(BACKUP_AUDIO_FILES_PATH) unless Dir.exist?(BACKUP_AUDIO_FILES_PATH)
 
+# == Set up Tinyfy on startup ==
+if ENV["USE_TINYPNG"]
+  Tinify.key = ENV["TINIFY_API_KEY"]
+  Tinify.validate!
+  log("#{Tinify.compression_count} image compressions this month")
+end
+
 # == Configure main file watcher settings ==
 filewatcher = Filewatcher.new(
   [IMAGE_WATCH_PATH, AUDIO_WATCH_PATH, INBOX_WATCH_PATH],

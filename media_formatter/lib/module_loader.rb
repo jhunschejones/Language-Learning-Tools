@@ -2,6 +2,7 @@ require "yaml"
 require "logger"
 require "fileutils"
 require "filewatcher"
+require "tinify"
 require "mini_magick"
 require "image_optim"
 

@@ -22,12 +22,16 @@ class Image
       end
 
       if image.filesize_kb > TARGET_FILESIZE_KB
-        log("====== Tinyifying #{filename} ======".green)
-        create_temp_file
-        tinyify_image
-        backup_origional_image
-        clean_up_temp_file
-        return true
+        begin
+          log("====== Tinyifying #{filename} ======".green)
+          create_temp_file
+          tinyify_image
+          backup_origional_image
+          clean_up_temp_file
+          return true
+        rescue => e
+          log("Unable to tinyify #{filename}: #{e.message}".red)
+        end
       end
 
       puts "Skipping #{event} event for #{filename}: filesize is already small enough"
@@ -56,9 +60,11 @@ class Image
 
     def tinyify_image
       processed_file_name = safe_tinyified_file_name
-      FileUtils.mv(
-        ImageOptim.new.optimize_image(image.filename), processed_file_name
-      )
+      if ENV["USE_TINYPNG"]
+        Tinify.from_file(filename).to_file(processed_file_name)
+      else
+        FileUtils.mv(ImageOptim.new.optimize_image(image.filename), processed_file_name)
+      end
       processed_file_name
     end
 
