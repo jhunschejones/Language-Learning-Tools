@@ -1,0 +1,2 @@
+allow_lossy: true
+cache_dir: "./tmp/cache"
