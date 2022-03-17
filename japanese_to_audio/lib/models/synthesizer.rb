@@ -9,16 +9,17 @@ class Synthesizer
 
   NON_WORD_NON_SPACE_CHARACTERS = /[^\w\s一-龯ぁ-んァ-ン０-９Ａ-ｚ]/
 
-  def initialize(japanese:, filename: nil, allow_all_characters: false)
+  def initialize(japanese:, filename: nil, allow_all_characters: false, client: POLLY)
     @japanese = japanese
     @filename = filename
     @allow_all_characters = allow_all_characters
+    @client = client
   end
 
   def convert_japanese_to_audio
     raise InvalidJapanese unless is_valid_japanese?
 
-    source = POLLY
+    source = @client
       .synthesize_speech({
         output_format: "mp3",
         text: "<speak><prosody rate='#{VOICE_SPEED}'>#{@japanese}</prosody></speak>",
