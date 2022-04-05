@@ -2,7 +2,7 @@ module Audio
   class Processor
     include Audio::Filename
 
-    SUPPORTED_EXTENSIONS = [".mp3", ".m4a"].freeze
+    SUPPORTED_EXTENSIONS = [".mp3", ".m4a", ".wav"].freeze
     PEAK_LEVEL = -3
     LOUDNESS = -20
 
