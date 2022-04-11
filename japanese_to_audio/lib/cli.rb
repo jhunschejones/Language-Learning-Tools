@@ -29,7 +29,8 @@ class Cli
       synthesizer = Synthesizer.new(
         japanese: japanese,
         filename: filename,
-        allow_all_characters: allow_all_characters || false
+        allow_all_characters: allow_all_characters || false,
+        voice: :female
       )
 
       # escaping spaces in the file so that the output is copy-paste-able into

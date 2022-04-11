@@ -9,10 +9,17 @@ class Synthesizer
 
   NON_WORD_NON_SPACE_CHARACTERS = /[^\w\s一-龯ぁ-んァ-ン０-９Ａ-ｚ]/
 
-  def initialize(japanese:, filename: nil, allow_all_characters: false, client: POLLY)
+  def initialize(
+    japanese:,
+    filename: nil,
+    allow_all_characters: false,
+    voice: :female,
+    client: POLLY
+  )
     @japanese = japanese
     @filename = filename
     @allow_all_characters = allow_all_characters
+    @voice_id = voice == :male ? MALE_VOICE_ID : FEMALE_VOICE_ID
     @client = client
   end
 
@@ -23,8 +30,9 @@ class Synthesizer
       .synthesize_speech({
         output_format: "mp3",
         text: "<speak><prosody rate='#{VOICE_SPEED}'>#{@japanese}</prosody></speak>",
-        voice_id: FEMALE_VOICE_ID,
-        text_type: "ssml"
+        voice_id: @voice_id,
+        text_type: "ssml",
+        engine: @voice_id == MALE_VOICE_ID ? "neural" : "standard"
       })
       .audio_stream
 
