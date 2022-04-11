@@ -1,4 +1,7 @@
 class Cli
+  DELETE_PREVIOUS_LINE = "\033[A\033[K\033[A".freeze
+  DELETE_CURRENT_LINE = "\033[1K\033[A".freeze
+
   def initialize
     unless Dir.exist?(Synthesizer::AUDIO_OUTPUT_FOLDER)
       raise "Invalid output folder: #{Synthesizer::AUDIO_OUTPUT_FOLDER}"
@@ -37,6 +40,24 @@ class Cli
       # other terminal commands
       destination_file = synthesizer.convert_japanese_to_audio.gsub(/\s/, "\\ ")
       puts "Generated #{destination_file} 🎉".green
+
+      puts "Retry with male voice?"
+      print "> "
+      if ["y", "yes"].include?(user_input)
+        synthesizer = Synthesizer.new(
+          japanese: japanese,
+          filename: filename,
+          allow_all_characters: allow_all_characters || false,
+          voice: :male
+        )
+        # escaping spaces in the file so that the output is copy-paste-able into
+        # other terminal commands
+        destination_file = synthesizer.convert_japanese_to_audio.gsub(/\s/, "\\ ")
+        puts "Generated #{destination_file} 🎉".green
+      else
+        puts DELETE_PREVIOUS_LINE
+        puts DELETE_PREVIOUS_LINE
+      end
     end
   rescue Interrupt
     puts "\nBye!".cyan
