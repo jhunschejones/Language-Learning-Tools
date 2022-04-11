@@ -53,7 +53,7 @@ class Synthesizer
   end
 
   def destination_file
-    "#{AUDIO_OUTPUT_FOLDER}/#{safe_filename}.mp3"
+    "#{AUDIO_OUTPUT_FOLDER}/#{safe_filename}_#{@voice_id}.mp3"
   end
 
   def default_filename

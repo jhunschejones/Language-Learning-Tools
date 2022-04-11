@@ -31,26 +31,26 @@ class SynthesizerTest < Test::Unit::TestCase
 
   def test_convert_japanese_to_audio_outputs_expected_mp3_file_with_english_filename
     Synthesizer.new(
-      japanese: Japanese.new("おはいようございます"),
+      japanese: Japanese.new("おはようございます"),
       filename: "test",
       client: @test_client
     ).convert_japanese_to_audio
 
-    assert File.exist?("./test/test.mp3")
+    assert File.exist?("./test/test_Mizuki.mp3")
 
-    File.delete("./test/test.mp3")
+    File.delete("./test/test_Mizuki.mp3")
   end
 
   def test_convert_japanese_to_audio_outputs_expected_mp3_file_with_japanese_filename
     Synthesizer.new(
-      japanese: Japanese.new("おはいようございます"),
-      filename: "おはいようございます",
+      japanese: Japanese.new("おはようございます"),
+      filename: "おはようございます",
       client: @test_client
     ).convert_japanese_to_audio
 
-    assert File.exist?("./test/おはいようございます.mp3")
+    assert File.exist?("./test/おはようございます_Mizuki.mp3")
 
-    File.delete("./test/おはいようございます.mp3")
+    File.delete("./test/おはようございます_Mizuki.mp3")
   end
 
   def test_convert_japanese_to_audio_outputs_expected_mp3_file_with_mixed_characters
@@ -61,9 +61,9 @@ class SynthesizerTest < Test::Unit::TestCase
       client: @test_client
     ).convert_japanese_to_audio
 
-    assert File.exist?("./test/I registerd for a netflix account.mp3")
+    assert File.exist?("./test/I registerd for a netflix account_Mizuki.mp3")
 
-    File.delete("./test/I registerd for a netflix account.mp3")
+    File.delete("./test/I registerd for a netflix account_Mizuki.mp3")
   end
 
   def test_convert_japanese_to_audio_uses_timestamp_when_no_filename_is_provided
@@ -72,24 +72,37 @@ class SynthesizerTest < Test::Unit::TestCase
     Time.stubs(:now).returns(test_time)
 
     Synthesizer.new(
-      japanese: Japanese.new("おはいようございます"),
+      japanese: Japanese.new("おはようございます"),
       client: @test_client
     ).convert_japanese_to_audio
-    assert File.exist?("./test/#{test_time_ms}.mp3")
+    assert File.exist?("./test/#{test_time_ms}_Mizuki.mp3")
 
-    File.delete("./test/#{test_time_ms}.mp3")
+    File.delete("./test/#{test_time_ms}_Mizuki.mp3")
   end
 
   def test_convert_japanese_to_audio_does_not_double_up_file_extensions
     Synthesizer.new(
-      japanese: Japanese.new("おはいようございます"),
-      filename: "test.mp3", # user passes a filename _with_ an extension
+      japanese: Japanese.new("おはようございます"),
+      filename: "test.mp3", # here the caller passes a filename with an extension
       client: @test_client
     ).convert_japanese_to_audio
 
-    refute File.exist?("./test/test.mp3.mp3")
-    assert File.exist?("./test/test.mp3")
+    refute File.exist?("./test/test_Mizuki.mp3.mp3")
+    assert File.exist?("./test/test_Mizuki.mp3")
 
-    File.delete("./test/test.mp3")
+    File.delete("./test/test_Mizuki.mp3")
+  end
+
+  def test_convert_japanese_to_audio_uses_male_voice_when_specified
+    Synthesizer.new(
+      japanese: Japanese.new("おはようございます"),
+      filename: "おはようございます",
+      client: @test_client,
+      voice: :male
+    ).convert_japanese_to_audio
+
+    assert File.exist?("./test/おはようございます_Takumi.mp3")
+
+    File.delete("./test/おはようございます_Takumi.mp3")
   end
 end
