@@ -9,27 +9,6 @@ on:
     branches: [ main ]
 
 jobs:
-  test_kanji_list:
-    name: Kanji List Unit Tests
-    runs-on: macos-11
-    defaults:
-      run:
-        working-directory: kanji_list
-    env:
-      BUNDLE_GEMFILE: ${{ github.workspace }}/kanji_list/Gemfile
-      SCRIPT_ENV: test
-      RAKE_ENV: test
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0.3'
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
-      run: bundle exec ./bin/test
-
   test_media_formatter:
     name: Media Formatter Unit Tests
     runs-on: macos-11

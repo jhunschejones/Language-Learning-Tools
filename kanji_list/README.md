@@ -1,7 +1,5 @@
 # Kanji List
 
-[![CI](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jhunschejones/Language-Learning-Tools/actions/workflows/ci.yml)
-
 ## Overview
 Kanji List is a script that I use with a local database when I create flashcards for studying Japanese. I built this tool as a way to quickly see the unique kanji in a new set of vocabulary while taking into account which kanji I've already made cards for.
 
