@@ -18,11 +18,11 @@ function trap_ctrlc ()
     let "hours=SECONDS/3600"
     let "minutes=(SECONDS%3600)/60"
     let "seconds=(SECONDS%3600)%60"
-    echo ${(%):-%F{cyan}}Media Formatter is shutting down after $hours hour(s), $minutes minute(s) and $seconds second(s)${(%):-%f}
+    echo ${(%):-%F{cyan}}Media Formatter is shutting down after $hours hours, $minutes minutes and $seconds seconds${(%):-%f}
   elif (( $SECONDS > 60 )) ; then
     let "minutes=(SECONDS%3600)/60"
     let "seconds=(SECONDS%3600)%60"
-    echo ${(%):-%F{cyan}}Media Formatter is shutting down after $minutes minute(s) and $seconds second(s)${(%):-%f}
+    echo ${(%):-%F{cyan}}Media Formatter is shutting down after $minutes minutes and $seconds seconds${(%):-%f}
   else
     echo ${(%):-%F{cyan}}Media Formatter is shutting down after $SECONDS seconds${(%):-%f}
   fi
