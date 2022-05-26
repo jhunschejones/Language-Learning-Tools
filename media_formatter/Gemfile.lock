@@ -15,7 +15,7 @@ GEM
     image_optim_pack (0.8.0.20220418)
       fspath (>= 2.1, < 4)
       image_optim (~> 0.19)
-    image_size (3.0.1)
+    image_size (3.0.2)
     in_threads (1.6.0)
     method_source (1.0.0)
     mini_magick (4.11.0)
