@@ -15,7 +15,9 @@ This script runs an interactive CLI which will allow you to add, skip, and remov
 Most of the screens in the CLI are searchable if you begin typing the name of a command for faster navigation.
 
 ### Cloud Storage
-For longer term persistence or for working across two machines, the app can save and restore your local database in pCloud. To use this functionality you will need to export `PCLOUD_API_DATA_REGION`, `PCLOUD_API_ACCESS_TOKEN`, `KANJI_LIST_PCLOUD_FOLDER_ID`, and `KANJI_LIST_PCLOUD_ARCHIVE_FOLDER_ID` environment variables for the `pcloud_api` client. _See `pcloud_api` gem instructions [here](https://github.com/jhunschejones/pcloud_api) if you need help finding these values._
+For longer term persistence or for working across two machines, the app can save and restore your local database in pCloud or AWS S3. To use this functionality you will need to export some environment variables:
+* For pCloud, set `PCLOUD_API_DATA_REGION`, `PCLOUD_API_ACCESS_TOKEN`, `KANJI_LIST_PCLOUD_FOLDER_ID`, and `KANJI_LIST_PCLOUD_ARCHIVE_FOLDER_ID`. _See `pcloud_api` gem instructions [here](https://github.com/jhunschejones/pcloud_api) if you need help finding these values._
+* For AWS S3, set `AWS_REGION`, `AWS_BUCKET`, `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY`.
 
 ### Import/Export
 You can import and export kanji from the script using CSV files:
