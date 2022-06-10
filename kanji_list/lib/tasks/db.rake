@@ -1,17 +1,5 @@
 namespace :db do
-  desc "Dump the database to a yaml file"
-  task :dump_to_yaml do
-    puts "Dumping database to ./#{KANJI_YAML_DUMP_PATH}".yellow
-    Kanji.dump_to_yaml
-  end
-
-  desc "Reset the database from a yaml file"
-  task :load_from_yaml do
-    puts "Loading database from ./#{KANJI_YAML_DUMP_PATH}".yellow
-    Kanji.load_from_yaml_dump
-  end
-
-  desc "Upload the database file and YAML dump to S3"
+  desc "Upload the database file to S3"
   task :upload_to_s3 do
     db_file_name = YAML.load(File.open("config/database.yml")).fetch(ENV["SCRIPT_ENV"])["database"]
 
@@ -20,16 +8,9 @@ namespace :db do
       .bucket(AWS_BUCKET)
       .object(db_file_name.split("/").last)
       .upload_file("./#{db_file_name}")
-
-    Rake::Task["db:dump_to_yaml"].invoke
-    puts "Uploading ./#{KANJI_YAML_DUMP_PATH} to S3".yellow
-    Aws::S3::Resource.new
-      .bucket(AWS_BUCKET)
-      .object(KANJI_YAML_DUMP_PATH.split("/").last)
-      .upload_file("./#{KANJI_YAML_DUMP_PATH}")
   end
 
-  desc "Download the database file and YAML dump from S3"
+  desc "Download the database file from S3"
   task :download_from_s3 do
     puts "WARNING: you are about to overwrite your local database with your".red
     puts "         DB state in S3. Are you sure you want to proceed? [Y/n]".red
@@ -45,20 +26,13 @@ namespace :db do
     File.open("./#{db_file_name}", "wb") do |file|
       client.get_object({ bucket: AWS_BUCKET, key: db_file_name.split("/").last }, target: file)
     end
-
-    puts "Downloading ./#{KANJI_YAML_DUMP_PATH} from S3".yellow
-    File.open("./#{KANJI_YAML_DUMP_PATH}", "wb") do |file|
-      client.get_object({ bucket: AWS_BUCKET, key: KANJI_YAML_DUMP_PATH.split("/").last }, target: file)
-    end
   end
 
-  desc "Upload state files to pCloud"
+  desc "Upload database file to pCloud"
   task :upload_to_pcloud do
-    Rake::Task["db:dump_to_yaml"].invoke
-
     # === Archive old files already in pCloud
     # NOTE: This will overwrite existing archive files for each day such that
-    #       there is only ever one pair of archive files stored per day.
+    #       there is only ever one database file stored per day.
     Pcloud::Folder.find(KANJI_LIST_PCLOUD_FOLDER_ID)
       .contents
       .filter { |item| item.is_a?(Pcloud::File) }
@@ -70,14 +44,6 @@ namespace :db do
         )
       end
 
-    # === Upload new state files
-    puts "Uploading #{KANJI_YAML_DUMP_PATH.split("/").last} to pCloud...".yellow
-    Pcloud::File.upload(
-      folder_id: KANJI_LIST_PCLOUD_FOLDER_ID,
-      filename: KANJI_YAML_DUMP_PATH.split("/").last,
-      file: File.open("./#{KANJI_YAML_DUMP_PATH}")
-    )
-
     puts "Uploading #{LOCAL_DB_FILENAME} to pCloud...".yellow
     Pcloud::File.upload(
       folder_id: KANJI_LIST_PCLOUD_FOLDER_ID,
@@ -86,7 +52,7 @@ namespace :db do
     )
   end
 
-  desc "Download state files from pCloud"
+  desc "Download the database file from pCloud"
   task :download_from_pcloud do
     Pcloud::Folder.find(KANJI_LIST_PCLOUD_FOLDER_ID)
       .contents

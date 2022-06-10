@@ -13,13 +13,12 @@ Rake::Task.define_task(:environment)
 
 Test::Unit.at_start do
   # this setup runs once at the start
-  File.write(KANJI_YAML_DUMP_PATH, "added_kanji:\n- character: 形\nskipped_kanji: []")
-  Kanji.load_from_yaml_dump
+  Kanji.new(character: "形").add! unless Kanji.find_by(character: "形")
   File.write(WORD_LIST_YAML_PATH, "#{WORD_LIST_KEY}: ['取り', '百万']")
 end
 
 Test::Unit.at_exit do
   # this setup runs once at the very end of the test
-  File.delete(WORD_LIST_YAML_PATH) if File.exist?(KANJI_YAML_DUMP_PATH)
-  File.delete(KANJI_YAML_DUMP_PATH) if File.exist?(KANJI_YAML_DUMP_PATH)
+  File.delete(WORD_LIST_YAML_PATH) if File.exist?(WORD_LIST_YAML_PATH)
+  Kanji.destroy_all
 end

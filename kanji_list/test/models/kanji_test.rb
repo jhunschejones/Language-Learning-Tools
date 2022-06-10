@@ -18,14 +18,6 @@ class KanjiTest < Test::Unit::TestCase
     assert_equal ["取", "百", "万"], Kanji.remaining_characters
   end
 
-  def test_load_from_yaml_restores_database
-    kanji_before = Kanji.all
-    Kanji.destroy_all
-    Kanji.load_from_yaml_dump
-    assert_equal 1, Kanji.count
-    assert_equal kanji_before, Kanji.all
-  end
-
   def test_add_creates_db_record_with_expected_status
     Kanji.new(character: "一").add!
     assert_equal "一", Kanji.last.character

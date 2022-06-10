@@ -25,52 +25,6 @@ class Kanji < ActiveRecord::Base
 
       new_characters - previous_characters
     end
-
-    def dump_to_yaml
-      File.open(KANJI_YAML_DUMP_PATH, "w") do |file|
-        file.write(
-          {
-            "added_kanji" => Kanji.where(status: ADDED_STATUS).map do |kanji|
-              {
-                "character" => kanji.character,
-                "added_to_list_at" => kanji.added_to_list_at&.strftime("%m/%d/%Y")
-              }.compact
-            end,
-            "skipped_kanji" => Kanji.where(status: SKIPPED_STATUS).map do |kanji|
-              {
-                "character" => kanji.character,
-                "added_to_list_at" => kanji.added_to_list_at&.strftime("%m/%d/%Y")
-              }.compact
-            end
-          }.to_yaml
-        )
-      end
-    end
-
-    def load_from_yaml_dump
-      dump = YAML.load(File.open(KANJI_YAML_DUMP_PATH))
-      Kanji.destroy_all
-      dump["added_kanji"].each do |kanji|
-        Kanji.new(
-          character: kanji["character"]&.strip,
-          added_to_list_at: if kanji["added_to_list_on"]
-            Date.strptime(kanji["added_to_list_on"], "%m/%d/%Y")
-          elsif kanji["added_to_list_at"]
-            Date.parse(kanji["added_to_list_at"])
-          end
-        ).add!
-      end
-      dump["skipped_kanji"].each do |kanji|
-        Kanji.new(
-          character: kanji["character"]&.strip,
-          added_to_list_at: if kanji["added_to_list_on"]
-            Date.strptime(kanji["added_to_list_on"], "%m/%d/%Y")
-          elsif kanji["added_to_list_at"]
-            Date.parse(kanji["added_to_list_at"])
-          end
-        ).skip!
-      end
-    end
   end
 
   def add!

@@ -10,14 +10,19 @@ This script runs an interactive CLI which will allow you to add, skip, and remov
 3. `bundle exec rake db:create db:migrate`
 4.  `./bin/run`
 
+*NOTE: The `./bin/run` command includes an auto-timeout that closes the script after 90 minutes _(since I often forget to stop it after I'm done.)_
+
 Most of the screens in the CLI are searchable if you begin typing the name of a command for faster navigation.
 
-The Rakefile includes a couple custom commands to dump the local database to a yaml file or to re-create the database from a yaml file. These can be used for easy backup and restore processes that are less dependent on the DB structure for the project.
+### Cloud Storage
+For longer term persistence or for working across two machines, the app can save and restore your local database in pCloud. To use this functionality you will need to export `PCLOUD_API_DATA_REGION`, `PCLOUD_API_ACCESS_TOKEN`, `KANJI_LIST_PCLOUD_FOLDER_ID`, and `KANJI_LIST_PCLOUD_ARCHIVE_FOLDER_ID` environment variables for the `pcloud_api` client. _See `pcloud_api` gem instructions [here](https://github.com/jhunschejones/pcloud_api) if you need help finding these values._
 
-For longer term storage, the app will store and restore state in pCloud. To use this functionality you will need to export `PCLOUD_API_DATA_REGION`, `PCLOUD_API_ACCESS_TOKEN`, `KANJI_LIST_PCLOUD_FOLDER_ID`, and `KANJI_LIST_PCLOUD_ARCHIVE_FOLDER_ID` environment variables for the `pcloud_api` client.
-
-*NOTE: The `./bin/run` command includes an auto-timeout that closes the script after 90 minutes (since I often forget to stop it after I'm done.)
+### Import/Export
+You can import and export kanji from the script using CSV files:
+`./bin/import-csv`
+`./bin/export-csv`
 
 ### Test Suite:
 1. `bundle install`
-2. `bundle exec ./bin/test`
+2. `SCRIPT_ENV=test rake db:create db:migrate`
+3. `bundle exec ./bin/test`
