@@ -6,7 +6,11 @@ require "active_record"
 require "aws-sdk-s3"
 require "aws-sdk-sns"
 require "pcloud_api"
+begin
 require "pony"
+rescue LoadError
+  puts "Unable to load pony. If you're not sending emails locally, don't worry about this error!"
+end
 require_relative "../db/connection"
 
 Dir["#{File.dirname(__FILE__)}/**/*.rb"].each do |file|
