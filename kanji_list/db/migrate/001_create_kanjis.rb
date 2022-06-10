@@ -3,6 +3,7 @@ class CreateKanjis < ActiveRecord::Migration[6.0]
     create_table :kanjis do |t|
       t.string :character, null: false
       t.string :status
+      t.datetime :added_to_list_at
       t.timestamps
     end
 

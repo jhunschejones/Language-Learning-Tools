@@ -54,4 +54,9 @@ class KanjiTest < Test::Unit::TestCase
     duplicate_kanji = Kanji.new(character: "J")
     refute duplicate_kanji.valid?
   end
+
+  def test_set_added_to_list_at_sets_value_when_one_is_not_provided
+    kanji = Kanji.new(character: "表").add!
+    assert kanji.added_to_list_at
+  end
 end

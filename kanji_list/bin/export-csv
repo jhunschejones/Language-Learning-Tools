@@ -5,7 +5,8 @@ require_relative "../lib/module_loader.rb"
 
 ORDERED_CSV_FIELDS = [
   :character,
-  :status
+  :status,
+  :added_to_list_at
 ]
 
 CSV.open("export-#{Time.now.to_i}.csv", "wb") do |csv|

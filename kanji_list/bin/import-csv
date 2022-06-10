@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+ENV["SCRIPT_ENV"] = "development"
+require_relative "../lib/module_loader.rb"
+
+puts "Drag and drop CSV file here:"
+print "> "
+
+csv_file = $stdin.gets.strip
+raise "Can't find file #{csv_file}" unless File.exists?(csv_file)
+
+puts "Importing:\n"
+already_exist_count = 0
+new_count = 0
+
+# Expecting a CSV with headers and columns in this format:
+#
+# character,status,added_to_list_on
+# 表,added,12/17/2021
+CSV.foreach(csv_file, headers: true) do |row|
+  print "."
+  if Kanji.find_by(character: row["character"])
+    already_exist_count += 1
+  else
+    Kanji.create!(
+      character: row["character"],
+      status: row["status"],
+      added_to_list_at: Date.strptime(row["added_to_list_on"], "%m/%d/%Y")
+    )
+    new_count += 1
+  end
+end
+
+puts "\nImport completed: #{new_count} new kanji added, #{already_exist_count} kanji already exist"

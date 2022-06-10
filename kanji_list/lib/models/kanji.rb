@@ -7,6 +7,8 @@ class Kanji < ActiveRecord::Base
 
   scope :added, -> { where(status: ADDED_STATUS) }
 
+  before_save :set_added_to_list_at
+
   class << self
     def next
       next_caracter = remaining_characters.first&.strip
@@ -59,5 +61,11 @@ class Kanji < ActiveRecord::Base
     save!
     $logger.debug("Skipped: #{inspect}") if $logger
     self
+  end
+
+  private
+
+  def set_added_to_list_at
+    self.added_to_list_at = Time.now unless added_to_list_at
   end
 end

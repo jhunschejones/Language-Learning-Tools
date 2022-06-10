@@ -14,6 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 1) do
   create_table "kanjis", force: :cascade do |t|
     t.string "character", null: false
     t.string "status"
+    t.datetime "added_to_list_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character"], name: "index_kanjis_on_character", unique: true
