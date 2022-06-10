@@ -53,13 +53,21 @@ class Kanji < ActiveRecord::Base
       dump["added_kanji"].each do |kanji|
         Kanji.new(
           character: kanji["character"]&.strip,
-          added_to_list_at: (kanji["added_to_list_on"] || kanji["added_to_list_at"]) && Date.strptime(kanji["added_to_list_on"] || kanji["added_to_list_at"], "%m/%d/%Y")
+          added_to_list_at: if kanji["added_to_list_on"]
+            Date.strptime(kanji["added_to_list_on"], "%m/%d/%Y")
+          elsif kanji["added_to_list_at"]
+            Date.parse(kanji["added_to_list_at"])
+          end
         ).add!
       end
       dump["skipped_kanji"].each do |kanji|
         Kanji.new(
           character: kanji["character"]&.strip,
-          added_to_list_at: (kanji["added_to_list_on"] || kanji["added_to_list_at"]) && Date.strptime(kanji["added_to_list_on"] || kanji["added_to_list_at"], "%m/%d/%Y")
+          added_to_list_at: if kanji["added_to_list_on"]
+            Date.strptime(kanji["added_to_list_on"], "%m/%d/%Y")
+          elsif kanji["added_to_list_at"]
+            Date.parse(kanji["added_to_list_at"])
+          end
         ).skip!
       end
     end
