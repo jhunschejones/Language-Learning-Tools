@@ -12,15 +12,18 @@ namespace :db do
 
   desc "Download the database file from S3"
   task :download_from_s3 do
-    puts "WARNING: you are about to overwrite your local database with your".red
-    puts "         DB state in S3. Are you sure you want to proceed? [Y/n]".red
-    unless ["y", "yes"].include?($stdin.gets.chomp.downcase)
-      puts "Skipping remote state download"
-      exit 0
-    end
-
     db_file_name = YAML.load(File.open("config/database.yml")).fetch(ENV["SCRIPT_ENV"])["database"]
     client = Aws::S3::Client.new
+    remote_db_last_modified = client.get_object({ bucket: AWS_BUCKET, key: db_file_name.split("/").last }).last_modified
+
+    if ::File.exist?("./#{db_file_name}") && ::File.ctime("./#{db_file_name}") > remote_db_last_modified
+      puts "WARNING: you are about to overwrite your local database with an older".red
+      puts "         DB state from S3. Are you sure you want to proceed? [Y/n]".red
+      unless ["y", "yes"].include?($stdin.gets.chomp.downcase)
+        puts "Skipping remote state download"
+        exit 0
+      end
+    end
 
     puts "Downloading ./#{db_file_name} from S3".yellow
     File.open("./#{db_file_name}", "wb") do |file|

@@ -22,14 +22,17 @@ class RakeTest < Test::Unit::TestCase
     Rake::Task["db:upload_to_s3"].invoke
   end
 
-  def test_download_from_s3_gets_user_permission_then_downloads_database_file
+  def test_download_from_s3_gets_user_permission_when_the_remote_db_file_is_old_then_downloads_database_file
     client_stub = Aws::S3::Client.new(stub_responses: true)
-    client_stub.expects(:get_object).once
+    mock_object = mock()
+    mock_object.stubs(:last_modified).returns(Date.strptime("01/01/2022", "%m/%d/%Y"))
+    client_stub.expects(:get_object).times(2).returns(mock_object)
     $stdin.expects(:gets).returns("y").once # asking for user confirmation!
     Aws::S3::Client.expects(:new).returns(client_stub)
 
-    # Move the DB file before it gets overwritten
+    # Copy the DB file before it gets overwritten
     FileUtils.mv("./db/local-test.db", "./tmp/local-test.db")
+    FileUtils.cp("./tmp/local-test.db", "./db/local-test.db")
 
     Rake::Task["db:download_from_s3"].invoke
 
