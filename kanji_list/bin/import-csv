@@ -25,7 +25,7 @@ CSV.foreach(csv_file, headers: true) do |row|
     Kanji.create!(
       character: row["character"],
       status: row["status"],
-      added_to_list_at: Date.strptime(row["added_to_list_on"], "%m/%d/%Y")
+      added_to_list_at: Date.strptime(row["added_to_list_on"] || row["added_to_list_at"], "%m/%d/%Y")
     )
     new_count += 1
   end

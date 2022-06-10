@@ -13,7 +13,7 @@ Rake::Task.define_task(:environment)
 
 Test::Unit.at_start do
   # this setup runs once at the start
-  File.write(KANJI_YAML_DUMP_PATH, "added_kanji: ['形']\nskipped_kanji: []")
+  File.write(KANJI_YAML_DUMP_PATH, "added_kanji:\n- character: 形\nskipped_kanji: []")
   Kanji.load_from_yaml_dump
   File.write(WORD_LIST_YAML_PATH, "#{WORD_LIST_KEY}: ['取り', '百万']")
 end
