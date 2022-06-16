@@ -2,6 +2,7 @@
 
 # To open in new tabs set `System preferences > General > Prefer tabs: always`
 open ~/Downloads/Japanese/Card\ Images
-open ~/Downloads/Japanese/Card\ Audio
+# open ~/Downloads/Japanese/Card\ Audio
 # open ~/Downloads/Japanese/Media\ Downloads
-[ -d ~/Downloads/Japanese/NSM\ N4\ Vocab/Word ] && open ~/Downloads/Japanese/NSM\ N4\ Vocab/Word
+# [ -d ~/Downloads/Japanese/NSM\ N4\ Vocab/Word ] && open ~/Downloads/Japanese/NSM\ N4\ Vocab/Word
+[ -d ~/Downloads/Japanese/NSM\ N4\ Vocab/Sentence\ Only ] && open ~/Downloads/Japanese/NSM\ N4\ Vocab/Sentence\ Only
