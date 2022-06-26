@@ -36,6 +36,9 @@ function trap_ctrlc ()
 # when signal 2 (SIGINT) is received
 trap "trap_ctrlc" 2
 
+# also call the function on other errors
+trap "trap_ctrlc" ERR
+
 bundle install --quiet && \
 . ./tmp/.env && \
 clear && \
