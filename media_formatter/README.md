@@ -21,3 +21,6 @@ Once this setup is complete, simply start the script with `./bin/run`, download 
 I am currently working on a second portion of this script which processes audio clips. To use this part of the app you will need to `brew install ffmpeg` if you haven't already. With some versions of xcode cli tools, you may also find that you need to disable Library Validation for ffmpeg to work properly.
 
 Since audio "loudness" is a fairly complex attribute affected by many factors, it is hard to automate _(unlike image size or file size.)_ You can tweak settings in `lib/media_formatter/audio_processor.rb` like `PEAK_LEVEL` and `LOUDNESS`, but YMMV Drop audio files in the `AUDIO_WATCH_DIRECTORY` to see what the script can do with them. There are also a couple lose scripts in the repo at the moment from some previous research _(`loudness.rb` and `loudness_2.rb`)_ which show additional examples of how to work with the ffmpeg library from Ruby.
+
+#### Bonus: CLI mode (experimental)
+To run the script in an experimental, interactive CLI mode rather than using the file watcher, follow the setup instructions above then start the script with `./bin/cli`. Make sure to test this mode with an example file before using it, as it is still experimental and might move your files around in a different way than you were expecting.

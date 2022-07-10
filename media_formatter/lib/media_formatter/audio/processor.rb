@@ -35,7 +35,7 @@ module Audio
     end
 
     def should_process_event?
-      event == :created &&
+      [:created, :cli].include?(event) &&
         !filename.include?(processed_suffix) &&
         SUPPORTED_EXTENSIONS.include?(file_extension)
     end

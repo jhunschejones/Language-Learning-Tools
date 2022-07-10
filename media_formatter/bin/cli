@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+if [[ "$1" == "open" ]]
+then
+  ./bin/open
+fi
+
+clear
+
+bundle exec ruby lib/cli.rb
