@@ -7,7 +7,7 @@ require "mini_magick"
 require "image_optim"
 
 Dir["#{File.dirname(__FILE__)}/**/*.rb"].each do |file|
-  require(file) unless ["main.rb", "cli.rb"].include? File.basename(file)
+  require(file) unless File.basename(file) == "main.rb"
 end
 
 $logger = Logger.new("tmp/log.txt") unless ENV["SCRIPT_ENV"] == "test"

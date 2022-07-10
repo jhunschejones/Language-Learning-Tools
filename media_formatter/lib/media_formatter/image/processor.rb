@@ -38,7 +38,7 @@ class Image
     end
 
     def should_process_event?
-      [:created, :cli].include?(event) &&
+      event == :created &&
         !filename.include?(TINYIFIED_IMAGE_SUFFIX) &&
         !filename.include?(TEMP_FILE_EXTENSION) &&
         filename[-1] != MINI_MAGICK_TEMP_SUFFIX &&

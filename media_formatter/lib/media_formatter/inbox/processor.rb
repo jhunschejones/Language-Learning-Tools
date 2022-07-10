@@ -12,8 +12,7 @@ module Inbox
     end
 
     def should_process_event?
-      defined?(INBOX_DIRECTORY) &&
-        File.dirname(filename) == INBOX_DIRECTORY &&
+      File.dirname(filename) == INBOX_DIRECTORY &&
         SUPPORTED_INBOX_EVENTS.include?(event)
     end
 
