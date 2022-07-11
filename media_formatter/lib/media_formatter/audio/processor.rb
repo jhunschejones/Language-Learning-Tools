@@ -22,7 +22,7 @@ module Audio
       log("====== Processing #{filename} ======".magenta)
 
       if audio_is_too_short?
-        # ffmpeg has trouble determining loudness for audio files > 3s in length.
+        # ffmpeg has trouble determining loudness for audio files < 3s in length.
         # To work around this limitation, this command pads the file out to 3s,
         # processes it, then trims it back to the original file length.
         `ffmpeg -y -hide_banner -loglevel panic -i '#{filename}' -af apad,atrim=0:3,loudnorm=I=#{LOUDNESS}:TP=#{PEAK_LEVEL},atrim=0:#{input_file_duration} -ar 44.1k '#{safe_processed_file_name}'`
