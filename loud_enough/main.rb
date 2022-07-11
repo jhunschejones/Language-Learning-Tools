@@ -41,12 +41,14 @@ class Processor
 end
 
 loop do
-  puts "Drag and drop the file to process:"
+  puts "Drag and drop a file to process:"
   print "> "
   user_input = $stdin.gets.chomp.strip.gsub("\\", "")
   exit(0) if ["q", "quit", "exit"].include?(user_input.downcase)
 
   if File.exist?(user_input)
     Processor.process(AudioFile.new(user_input))
+  else
+    puts "Could not find file: #{user_input}"
   end
 end

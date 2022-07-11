@@ -5,4 +5,6 @@ A simple CLI script to make normalizing volume with `ffmpg` easy to do on the fl
 
 ### In use
 1. `brew install ffmpeg`
-2. `ruby main.rb`
+2. `./bin/run`
+
+To clear out processed files, `./bin/clear-processed` will remove all `.mp3` files from the local processed folder.
