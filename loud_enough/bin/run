@@ -1,1 +1,8 @@
+#!/bin/zsh
+
+if [[ "$1" == "open" ]]
+then
+  ./bin/open
+fi
+
 ruby main.rb
