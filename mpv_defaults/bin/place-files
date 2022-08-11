@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+# Make the scripts directory if it doesn't exist yet
+puts `[ -d ~/.config/mpv/scripts/ ] && echo "Scripts directory found 👍" || (mkdir -p ~/.config/mpv/scripts/ && echo "Scripts directory created 👍")`
+# Make the script settings directory if it doesn't exist yet
+puts `[ -d ~/.config/mpv/script-opts/ ] && echo "Script options directory found 👍" || (mkdir -p ~/.config/mpv/script-opts/ && echo "Script options directory created 👍")`
+# Copy mpv custom settings
+puts `cp default_settings/mpv.conf ~/.config/mpv/mpv.conf && echo "Default mpv settings reset 👍" || "Unable to reset default mpv settings"`
+scripts_dir = `echo ~/.config/mpv/scripts/`.strip
+
+puts "\nThis script will help you set up a couple extensions to use with mpv. Type 'skip' to skip any that you do not need!"
+
+# Get the mpvacious directory
+puts "Drag the directory for mpvacious here:"
+print "> "
+mpvatious_path = $stdin.gets.strip
+if ["s", "skip", "next"].include?(mpvatious_path.downcase)
+  puts "Skipping mpvatious setup..."
+else
+  unless File.exist?(mpvatious_path)
+    puts "Could not find file: #{mpvatious_path}"
+    exit 0
+  end
+
+  # Copy the user-provided mpvacious directory into the scripts directory
+  puts "Copying mpvacious directory to scripts directory..."
+  FileUtils.copy_entry(mpvatious_path, "#{scripts_dir}subs2srs")
+
+  # Copy subs2srs custom settings
+  puts `cp default_settings/subs2srs.conf ~/.config/mpv/script-opts/subs2srs.conf && echo "Default subs2srs settings reset 👍" || "Unable to reset default subs2srs settings"`
+end
+
+# Get the autosubsync-mpv directory
+puts "Drag the directory for autosubsync-mpv here:"
+print "> "
+autosubsync_path = $stdin.gets.strip
+if ["s", "skip", "next"].include?(autosubsync_path.downcase)
+  puts "Skipping autosubsync-mpv setup..."
+else
+  unless File.exist?(autosubsync_path)
+    puts "Could not find file: #{autosubsync_path}"
+    exit 0
+  end
+
+  # Copy the user-provided autosubsync directory into the scripts directory
+  puts "Copying autosubsync directory to scripts directory..."
+  FileUtils.copy_entry(autosubsync_path, "#{scripts_dir}autosubsync")
+
+  # Create autosubsync config file, no custom settings just yet
+  `touch ~/.config/mpv/script-opts/autosubsync.conf`
+end
+
+puts "Done! 🎉"
