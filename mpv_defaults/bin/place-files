@@ -3,7 +3,7 @@
 require "fileutils"
 
 def get_user_input(skip_message: nil)
-  user_input = $stdin.gets.strip
+  user_input = $stdin.gets.strip.gsub("'", "")
   exit 0 if ["q", "quit", "exit"].include?(user_input.downcase)
 
   if ["s", "skip", "n", "no", "next"].include?(user_input.downcase)
