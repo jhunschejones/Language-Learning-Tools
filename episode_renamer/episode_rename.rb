@@ -45,7 +45,7 @@ elsif ["2", "remove", "remove text"].include?(user_choice.downcase)
 
   puts "Removed text in #{episode_files.size} #{episode_files.one? ? "file" : "files"}"
 elsif ["3", "smart", "smart cleanup"].include?(user_choice.downcase)
-  text_between_brackets = /(\s?\[.*\])/
+  text_between_brackets = /(\s?\[[\w]*\])/
   episode_files.each do |file|
     File.rename(file, file.gsub(text_between_brackets, ""))
   end
