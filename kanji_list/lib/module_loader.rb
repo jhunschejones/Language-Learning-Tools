@@ -9,7 +9,7 @@ require "pcloud_api"
 begin
 require "pony"
 rescue LoadError
-  puts "Unable to load pony. If you're not sending emails locally, don't worry about this error!"
+  # puts "Unable to load pony. If you're not sending emails locally, don't worry about this error!"
 end
 require_relative "../db/connection"
 
