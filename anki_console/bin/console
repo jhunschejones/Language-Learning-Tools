@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Starting console..."
+RAKE_ENV=development LOG_QUERIES=true irb -r ./lib/module_loader.rb

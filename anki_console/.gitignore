@@ -1,0 +1,6 @@
+tmp/log.txt
+tmp/.env
+*.anki2
+*.anki2-shm
+*.anki2-wal
+*.csv

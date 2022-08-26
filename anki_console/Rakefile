@@ -1,0 +1,6 @@
+require_relative "lib/module_loader"
+require "./support/active_record_rake_tasks"
+
+Dir["lib/tasks/*.rake"].sort.each { |ext| load ext }
+
+task :environment
