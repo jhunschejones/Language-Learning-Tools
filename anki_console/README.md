@@ -15,4 +15,6 @@ NOTE: https://github.com/ankidroid/Anki-Android/wiki/Database-Structure is a goo
 #### Using the console
 1. Copy your `collection.anki2` file to the `./db/` directory
 2. `bundle install`
-3. `./bin/console`
+3. `bundle exec rake db:migrate` to remove custom collation method
+4. `./bin/console`
+5. Run activerecord queries to your hearts content, like `Deck.find_by(name: "Japanese").notes.all_cards_suspended.size`

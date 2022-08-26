@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   end
 
   create_table "decks", force: :cascade do |t|
-    t.text "name", null: false
+    t.text "name", null: false, collation: "NOCASE"
     t.integer "mtime_secs", null: false
     t.integer "usn", null: false
     t.binary "common", null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   end
 
   create_table "notetypes", force: :cascade do |t|
-    t.text "name", null: false
+    t.text "name", null: false, collation: "NOCASE"
     t.integer "mtime_secs", null: false
     t.integer "usn", null: false
     t.binary "config", null: false
