@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cp ~/Library/Application\ Support/Anki2/User\ 1/collection.anki2 ./db/collection.anki2
