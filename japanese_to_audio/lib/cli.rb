@@ -12,12 +12,10 @@ class Cli
   def run
     loop do
       puts "Provide some Japanese to convert to audio:"
-      print "> "
       japanese = Japanese.new(user_input)
 
       unless japanese.is_valid?
         puts "Some characters don't look lile Japanese. Allow all characters? [Y/N]"
-        print "> "
         allow_all_characters = ["y", "yes"].include?(user_input)
         unless allow_all_characters && japanese.is_valid?(allow_all_characters: true)
           puts "Sorry, I couldn't recognize '#{japanese}'".red
@@ -26,7 +24,6 @@ class Cli
       end
 
       puts "What would you like to name the output file?"
-      print "> "
       filename = user_input
 
       synthesizer = Synthesizer.new(
@@ -42,7 +39,6 @@ class Cli
       puts "Generated #{destination_file} 🎉".green
 
       puts "Retry with male voice?"
-      print "> "
       if ["y", "yes"].include?(user_input)
         synthesizer = Synthesizer.new(
           japanese: japanese,
@@ -67,7 +63,7 @@ class Cli
   private
 
   def user_input
-    input = $stdin.gets.chomp
+    input = Readline.readline("> ", false).chomp
     if ["QUIT", "Q", "EXIT"].include?(input.upcase)
       puts "Bye!".cyan
       exit 0
