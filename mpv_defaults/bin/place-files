@@ -29,6 +29,8 @@ if ["y", "yes"].include?(get_user_input(skip_message: "Skipping resetting your d
   puts `cp default_settings/mpv.conf ~/.config/mpv/mpv.conf && echo "Default mpv settings reset 👍" || "Unable to reset default mpv settings"`
   # Copy input custom settings
   puts `cp default_settings/input.conf ~/.config/mpv/input.conf && echo "Default input settings reset 👍" || "Unable to reset default input settings"`
+  # Copy OSC custom settings
+  puts `cp default_settings/osc.conf ~/.config/mpv/script-opts/osc.conf && echo "Default OSC settings reset 👍" || "Unable to reset default OSC settings"`
   # Copy subs2srs custom settings
   puts `cp default_settings/subs2srs.conf ~/.config/mpv/script-opts/subs2srs.conf && echo "Default subs2srs settings reset 👍" || "Unable to reset default subs2srs settings"`
   # Use this to create an autosubsync config file, no custom settings have been
