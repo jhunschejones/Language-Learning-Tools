@@ -9,7 +9,7 @@
    * https://github.com/smacke/ffsubsync
 3. Download [`mpvatious`](https://github.com/Ajatt-Tools/mpvacious)
 4. Download [`autosubsync-mpv`](https://github.com/Ajatt-Tools/autosubsync-mpv)
-5. Run the script `./bin/place-files` and follow the instructions in the CLI
+5. Run the script `./bin/run` and follow the instructions in the CLI
 6. Install the [clipboard inserter](https://chrome.google.com/webstore/detail/clipboard-inserter/deahejllghicakhplliloeheabddjajm?hl=en) Chrome extension and allow access to file URLs in settings
 7. Optional: Use the yomichan search page with clipboard observation enabled instead of https://texthooker.com/ if you prefer
 
