@@ -1,46 +1,48 @@
 #!/usr/bin/env ruby
 
 require "fileutils"
+require "readline"
+require_relative "../lib/string_utils"
 
 def get_user_input(skip_message: nil)
-  user_input = $stdin.gets.strip.gsub("'", "")
+  user_input = Readline.readline("> ", false).strip.gsub("'", "")
   exit 0 if ["q", "quit", "exit"].include?(user_input.downcase)
 
   if ["s", "skip", "n", "no", "next"].include?(user_input.downcase)
-    puts skip_message if skip_message
+    puts skip_message.gray if skip_message
     return false
   end
 
   user_input
 end
 
+puts "SETUP:".gray
 # Make the scripts directory if it doesn't exist yet
-puts `[ -d ~/.config/mpv/scripts/ ] && echo "Scripts directory found 👍" || (mkdir -p ~/.config/mpv/scripts/ && echo "Scripts directory created 👍")`
+puts `[ -d ~/.config/mpv/scripts/ ] && echo "- Scripts directory found 👍" || (mkdir -p ~/.config/mpv/scripts/ && echo "+ Scripts directory created 👍")`
 # Make the script settings directory if it doesn't exist yet
-puts `[ -d ~/.config/mpv/script-opts/ ] && echo "Script options directory found 👍" || (mkdir -p ~/.config/mpv/script-opts/ && echo "Script options directory created 👍")`
+puts `[ -d ~/.config/mpv/script-opts/ ] && echo "- Script options directory found 👍" || (mkdir -p ~/.config/mpv/script-opts/ && echo "+ Script options directory created 👍")`
 scripts_dir = `echo ~/.config/mpv/scripts/`.strip
 
-puts "\nThis script will help you set up a couple extensions to use with mpv. Type 'skip' to skip any that you do not need!"
+puts "\nINSTRUCTIONS:".gray
+puts "This script will help you set up a couple extensions to use with mpv. Type 'skip' to skip any that you do not need!"
 
-puts "Would you like to reset mpv and subs2srs settings to the defaults in this repo? [y/n]"
-print "> "
+puts "\nWould you like to reset mpv and subs2srs settings to the defaults in this repo? [y/n]"
 if ["y", "yes"].include?(get_user_input(skip_message: "Skipping resetting your defaults..."))
   # Copy mpv custom settings
-  puts `cp default_settings/mpv.conf ~/.config/mpv/mpv.conf && echo "Default mpv settings reset 👍" || "Unable to reset default mpv settings"`
+  puts `cp default_settings/mpv.conf ~/.config/mpv/mpv.conf && echo "- Default mpv settings reset 👍" || "x Unable to reset default mpv settings"`
   # Copy input custom settings
-  puts `cp default_settings/input.conf ~/.config/mpv/input.conf && echo "Default input settings reset 👍" || "Unable to reset default input settings"`
+  puts `cp default_settings/input.conf ~/.config/mpv/input.conf && echo "- Default input settings reset 👍" || "x Unable to reset default input settings"`
   # Copy OSC custom settings
-  puts `cp default_settings/osc.conf ~/.config/mpv/script-opts/osc.conf && echo "Default OSC settings reset 👍" || "Unable to reset default OSC settings"`
+  puts `cp default_settings/osc.conf ~/.config/mpv/script-opts/osc.conf && echo "- Default OSC settings reset 👍" || "x Unable to reset default OSC settings"`
   # Copy subs2srs custom settings
-  puts `cp default_settings/subs2srs.conf ~/.config/mpv/script-opts/subs2srs.conf && echo "Default subs2srs settings reset 👍" || "Unable to reset default subs2srs settings"`
+  puts `cp default_settings/subs2srs.conf ~/.config/mpv/script-opts/subs2srs.conf && echo "- Default subs2srs settings reset 👍" || "x Unable to reset default subs2srs settings"`
   # Use this to create an autosubsync config file, no custom settings have been
   # defined in this repo yet.
   `touch ~/.config/mpv/script-opts/autosubsync.conf`
 end
 
 # Get the mpvacious directory
-puts "To install mpvatious, drag the directory for mpvacious here:"
-print "> "
+puts "\nTo install mpvatious, drag the directory for mpvacious here:"
 if mpvatious_path = get_user_input(skip_message: "Skipping mpvatious setup...")
   unless File.exist?(mpvatious_path)
     puts "Could not find file: #{mpvatious_path}"
@@ -53,8 +55,7 @@ if mpvatious_path = get_user_input(skip_message: "Skipping mpvatious setup...")
 end
 
 # Get the autosubsync-mpv directory
-puts "To install autosubsync-mpv, drag the directory for autosubsync-mpv here:"
-print "> "
+puts "\nTo install autosubsync-mpv, drag the directory for autosubsync-mpv here:"
 if autosubsync_path = get_user_input(skip_message: "Skipping autosubsync-mpv setup...")
   unless File.exist?(autosubsync_path)
     puts "Could not find file: #{autosubsync_path}"
@@ -66,4 +67,4 @@ if autosubsync_path = get_user_input(skip_message: "Skipping autosubsync-mpv set
   FileUtils.copy_entry(autosubsync_path, "#{scripts_dir}autosubsync")
 end
 
-puts "Done! 🎉"
+puts "\nDone! 🎉".green
