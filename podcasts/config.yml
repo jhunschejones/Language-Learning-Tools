@@ -1,0 +1,14 @@
+download_directory: ~/Downloads/_Anime for Refold
+podcasts:
+  - name: The Real Japanese Podcast
+    transcript_url: https://www.haru-no-nihongo.com/podcast
+    rss_url: https://anchor.fm/s/26aec4fc/podcast/rss
+    audio_directory: ~/Downloads/_Podcasts for Refold/The Real Japanese Podcast! 日本語の勉強のためのポッドキャストです！
+  - name: Nihongo Switch
+    transcript_url: https://nihongoswitch.com/podcast-transcripts/
+    rss_url: https://feeds.buzzsprout.com/806075.rss
+    audio_directory: ~/Downloads/_Podcasts for Refold/Nihongo SWiTCH
+  - name: Nihongo That's Dan
+    transcript_url: https://nihongothatsdan.com/transcripts/
+    rss_url: https://anchor.fm/s/ac8fed8/podcast/rss
+    audio_directory: ~/Downloads/_Podcasts for Refold/にほんごザッツ☆談 日本語・Nihongo・Japanese

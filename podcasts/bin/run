@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require "yaml"
+require "readline"
+require_relative "../lib/cli"
+
+config = YAML.safe_load(File.read("config.yml"))
+download_directory = config.fetch("download_directory", "/")
+podcasts = config.fetch("podcasts", [])
+unless podcasts.any?
+  puts "No podcasts found in `./config.yml"
+  exit 0
+end
+
+loop do
+  puts "What podcast are you listening to?"
+  podcasts.each_with_index { |podcast, index| puts("#{index + 1}. #{podcast["name"]}") }
+  podcast_number = Cli.user_input
+  podcast = podcasts[podcast_number.to_i - 1]
+  unless podcast
+    puts "I couldn't find podcast '#{podcast_number}'\n"
+    next
+  end
+
+  puts "What would you like to do for #{podcast["name"]}?"
+  puts "1. Update local downloads"
+  puts "2. Start listening with transcript"
+  choice = Cli.user_input
+
+  if choice == "1"
+    Dir.chdir(download_directory.gsub("~", Dir.home))
+    puts "Updating podcast downloads..."
+    puts `npx podcast-dl --threads 4 --url "#{podcast["rss_url"]}"`
+  elsif choice == "2"
+    `open #{podcast["transcript_url"]}`
+    `open #{podcast["audio_directory"].gsub(' ', '\ ')}`
+  else
+    puts "Unrecognized choice '#{choice}'"
+  end
+end
