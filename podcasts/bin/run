@@ -5,7 +5,7 @@ require "readline"
 require_relative "../lib/cli"
 
 config = YAML.safe_load(File.read("config.yml"))
-download_directory = config.fetch("download_directory", "/")
+download_directory = config.fetch("download_directory", "/").gsub("~", Dir.home)
 podcasts = config.fetch("podcasts", [])
 unless podcasts.any?
   puts "No podcasts found in `./config.yml"
@@ -28,12 +28,32 @@ loop do
   choice = Cli.user_input
 
   if choice == "1"
-    Dir.chdir(download_directory.gsub("~", Dir.home))
+    Dir.chdir(download_directory)
     puts "Updating podcast downloads..."
     puts `npx podcast-dl --threads 4 --url "#{podcast["rss_url"]}"`
   elsif choice == "2"
+    path_to_podcast_dir =
+      if audio_directory = File.exists?(podcast["audio_directory"].gsub("~", Dir.home))
+        audio_directory
+      else
+        # These dir names get wierd. If the one in the config doesn't work,
+        # try to find one like it in the download directory.
+        matching_files = []
+        Dir.entries(download_directory).each do |file|
+          if podcast["audio_directory"].include?(file[0..7])
+            matching_files << file
+          end
+        end
+        if matching_files.one?
+          "#{download_directory}/#{matching_files.first}"
+        else
+          # Well... we tried, just return the original directory so the error makes sense.
+          audio_directory
+        end
+      end
+    puts path_to_podcast_dir.gsub(' ', '\ ')
     `open #{podcast["transcript_url"]}`
-    `open #{podcast["audio_directory"].gsub(' ', '\ ')}`
+    `open #{path_to_podcast_dir.gsub(' ', '\ ')}`
   else
     puts "Unrecognized choice '#{choice}'"
   end
