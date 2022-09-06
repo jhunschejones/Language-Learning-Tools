@@ -1,4 +1,25 @@
 #!/bin/bash
 
+# Load up your environment variables
+. ./tmp/.env
+
+# Load remote state if a remote state option is configured
+if [ -n "$KANJI_LIST_PCLOUD_FOLDER_ID" ]
+then
+  SCRIPT_ENV=development RAKE_ENV=development bundle exec rake db:download_from_pcloud
+elif [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]
+then
+  SCRIPT_ENV=development RAKE_ENV=development bundle exec rake db:download_from_s3
+fi
+
 echo "Starting console..."
 . ./tmp/.env && RAKE_ENV=development SCRIPT_ENV=development LOG_QUERIES=true irb -r ./lib/module_loader.rb
+
+# Backup state to remote if a remote state option is configured
+if [ -n "$KANJI_LIST_PCLOUD_FOLDER_ID" ]
+then
+  SCRIPT_ENV=development RAKE_ENV=development bundle exec rake db:upload_to_pcloud
+elif [ -n "$AWS_REGION" ] && [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]
+then
+  SCRIPT_ENV=development RAKE_ENV=development bundle exec rake db:upload_to_s3
+fi
