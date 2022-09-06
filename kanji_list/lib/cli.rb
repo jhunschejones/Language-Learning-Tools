@@ -117,7 +117,7 @@ class CLI
   end
 
   def total_kanji_added_message
-    "Total kanji added: #{Kanji.where(status: Kanji::ADDED_STATUS).count}".cyan
+    "Total kanji added: #{Kanji.added.count} \nJouyou kanji added: #{Kanji.added.jouyou.count}".cyan
   end
 
   def add_new_words_to_word_list
