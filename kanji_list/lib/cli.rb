@@ -117,7 +117,20 @@ class CLI
   end
 
   def total_kanji_added_message
-    "Total kanji added: #{Kanji.added.count} \nJouyou kanji added: #{Kanji.added.jouyou.count}".cyan
+    message = ""
+    counts = [
+      { label: "Total kanji added:", count: Kanji.added.count },
+      { label: "Jouyou:", count: Kanji.added.jouyou.count },
+      { label: "Non-Jouyou:", count: Kanji.added.non_jouyou.count },
+    ]
+
+    counts.map.with_index do |count, index|
+      message << "#{count[:label].gray} #{count[:count].to_s.cyan}"
+      message << " (".gray && next if index == 0
+      message << ")".gray && next if index == counts.size - 1
+      message << ", ".gray
+    end
+    message.strip
   end
 
   def add_new_words_to_word_list
