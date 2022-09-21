@@ -6,6 +6,6 @@ curl http://ftp.edrdg.org/pub/Nihongo/JMdict_e.gz -o jmdict.xml.gz
 gunzip jmdict.xml.gz
 
 # Download KANJIDIC2:
-# curl http://www.edrdg.org/kanjidic/kanjidic2.xml.gz -o kanjidic2.xml.gz
+curl http://www.edrdg.org/kanjidic/kanjidic2.xml.gz -o kanjidic2.xml.gz
 # Unzip to kanjidic2.xml
-# gunzip kanjidic2.xml.gz
+gunzip kanjidic2.xml.gz
