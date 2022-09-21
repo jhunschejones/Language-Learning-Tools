@@ -5,8 +5,8 @@ My goal with this script is to provide a Ruby console for interacting with an An
 
 ### In use
 
-#### To generate the schema
-1. Manually copy your `collection.anki2` file to the `./db/` directory _(or use the `./bin/copydb` script)_
+#### To generate a schema
+1. Copy your `collection.anki2` file to the `./db/` directory
 2. Run `bundle exec rake db:schema:dump`
 3. Check `db/schema.rb` for the schema
 
