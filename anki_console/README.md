@@ -23,7 +23,7 @@ NOTE: https://github.com/ankidroid/Anki-Android/wiki/Database-Structure is a goo
 **Example Queries:**
 ```ruby
 # Build an Anki query that returns notes where all cards are suspended
-note_ids = Deck.find_by(name: "Japanese").notes.all_cards_suspended.map(&:id)
+note_ids = Deck.find_by(name: "Japanese").notes.all_cards_suspended.pluck(:id)
 # https://docs.ankiweb.net/searching.html#object-ids
 puts "nid:#{note_ids.join(",")}"
 ```
