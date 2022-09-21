@@ -5,7 +5,13 @@ class CLI
     ADVANCED_OPTION = "More options",
     QUIT_OPTION = "Quit"
   ].freeze
-  NEXT_KANJI_OPTIONS = ["Open URLs", "Add", "Skip", "Back"].freeze
+  NEXT_KANJI_OPTIONS = [
+    "Open URLs",
+    "Add",
+    "Skip",
+    "Delete word",
+    "Back"
+  ].freeze
   ADVANCED_OPTIONS = [
     TOTALS_OPTION = "Total kanji count",
     ADD_OPTION = "Add kanji (freeform)",
@@ -70,6 +76,13 @@ class CLI
       next_kanji.add!
     when "Skip"
       next_kanji.skip!
+    when "Delete word"
+      words = YAML.load(File.open(WORD_LIST_YAML_PATH))[WORD_LIST_KEY]
+      words_minus_next_kanji = words.map { |word| word.gsub(next_kanji.character, "")}
+
+      File.open(WORD_LIST_YAML_PATH, "w") do |file|
+        file.write({ WORD_LIST_KEY => words_minus_next_kanji }.to_yaml)
+      end
     end
   end
 
