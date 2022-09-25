@@ -14,6 +14,7 @@ class CLI
   ].freeze
   ADVANCED_OPTIONS = [
     TOTALS_OPTION = "Total kanji count",
+    KANJI_WALL_OPTION = "Kanji wall",
     ADD_OPTION = "Add kanji (freeform)",
     SKIP_OPTION = "Skip kanji (freeform)",
     REMOVE_OPTION = "Remove kanji (freeform)",
@@ -95,6 +96,8 @@ class CLI
     )
     when TOTALS_OPTION
       puts total_kanji_added_message
+    when KANJI_WALL_OPTION
+      puts Kanji.added.pluck(:character).join("")
     when ADD_OPTION
       kanji_to_add = Kanji.new(character: @prompt.ask("What kanji would you like to add?")&.strip)
       begin
