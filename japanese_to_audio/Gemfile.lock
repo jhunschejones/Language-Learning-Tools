@@ -2,21 +2,21 @@ GEM
   remote: https://rubygems.org/
   specs:
     aws-eventstream (1.2.0)
-    aws-partitions (1.628.0)
-    aws-sdk-core (3.144.0)
+    aws-partitions (1.644.0)
+    aws-sdk-core (3.159.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-polly (1.57.0)
+    aws-sdk-polly (1.58.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.5.1)
+    aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     coderay (1.1.3)
     jmespath (1.6.1)
     method_source (1.0.0)
-    mocha (1.14.0)
+    mocha (1.15.0)
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
     power_assert (2.0.1)
@@ -24,7 +24,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.6.0)
-    test-unit (3.5.3)
+    test-unit (3.5.5)
       power_assert
 
 PLATFORMS
