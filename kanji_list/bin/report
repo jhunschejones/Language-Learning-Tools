@@ -4,8 +4,9 @@
 . ./tmp/.env
 
 if [ -n "$TARGET_BEAR_NOTE_TITLE" ]
-  echo "Updating '$TARGET_BEAR_NOTE_TITLE' Bear note..."
 then
+  echo "Updating '$TARGET_BEAR_NOTE_TITLE' Bear note..."
+  SCRIPT_ENV=development bundle exec rake db:report_totals_in_bear_note
 elif [ -n "$EMAIL_RECIPIENT" ] && [ -n "$EMAIL_SENDER" ]
 then
   echo "Generating email report..."

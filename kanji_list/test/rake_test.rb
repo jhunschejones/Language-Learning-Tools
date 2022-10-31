@@ -97,7 +97,7 @@ class RakeTest < Test::Unit::TestCase
   end
 
   # TODO: is it worth creating a note during text to make sure the content makes it there?
-  # def test_update_totals_in_bear_notes_runs_x_callback_url
-  #   Rake::Task["db:update_totals_in_bear_notes"].invoke
+  # def test_report_totals_in_bear_note_runs_x_callback_url
+  #   Rake::Task["db:report_totals_in_bear_note"].invoke
   # end
 end

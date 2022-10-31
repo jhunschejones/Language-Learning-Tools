@@ -107,7 +107,7 @@ namespace :db do
   end
 
   desc "Count completed kanji and send to a Bear note"
-  task :update_totals_in_bear_notes do
+  task :report_totals_in_bear_note do
     # https://bear.app/xurlbuilder/add_text/
     uri = "bear://x-callback-url/add-text?title=#{ERB::Util.url_encode(ENV["TARGET_BEAR_NOTE_TITLE"])}&mode=prepend&open_note=no&show_window=no&timestamp=yes&text=#{ERB::Util.url_encode("#{Kanji.added.count} kanjis have been added with #{Kanji.remaining_characters.size} left to add")}"
     response = %x[open "#{uri}"]
