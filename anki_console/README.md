@@ -26,4 +26,10 @@ NOTE: https://github.com/ankidroid/Anki-Android/wiki/Database-Structure is a goo
 note_ids = Deck.find_by(name: "Japanese").notes.all_cards_suspended.pluck(:id)
 # https://docs.ankiweb.net/searching.html#object-ids
 puts "nid:#{note_ids.join(",")}"
+
+# How many sentence notes have I made?
+NoteType.find_by(name: "Japanese 2022 Sentence Card").notes.count
+
+# How many kanji notes have I made?
+NoteType.find_by(name: "Japanese Kanji Note").notes.count
 ```
