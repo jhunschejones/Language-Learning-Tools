@@ -3,7 +3,10 @@
 # Load up your environment variables
 . ./tmp/.env
 
-if [ -n "$EMAIL_RECIPIENT" ] && [ -n "$EMAIL_SENDER" ]
+if [ -n "$TARGET_BEAR_NOTE_TITLE" ]
+  echo "Updating '$TARGET_BEAR_NOTE_TITLE' Bear note..."
+then
+elif [ -n "$EMAIL_RECIPIENT" ] && [ -n "$EMAIL_SENDER" ]
 then
   echo "Generating email report..."
   SCRIPT_ENV=development bundle exec rake db:report_totals_to_email

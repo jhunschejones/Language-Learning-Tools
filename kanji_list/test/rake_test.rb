@@ -95,4 +95,9 @@ class RakeTest < Test::Unit::TestCase
       puts "Unable to load pony. If you're not sending emails locally, don't worry about this error!"
     end
   end
+
+  # TODO: is it worth creating a note during text to make sure the content makes it there?
+  # def test_update_totals_in_bear_notes_runs_x_callback_url
+  #   Rake::Task["db:update_totals_in_bear_notes"].invoke
+  # end
 end

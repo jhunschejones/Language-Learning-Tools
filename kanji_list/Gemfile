@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.1.2"
 
 gem "activerecord", "~> 7.0.0alpha2"
+gem "erb"
 gem "sqlite3"
 gem "rake"
 gem "tty-prompt"
