@@ -1,4 +1,9 @@
 #!/bin/bash
 
+echo "Copying user library..."
 cp ~/Library/Application\ Support/Anki2/User\ 1/collection.anki2 ./db/collection.anki2
+
+echo "Running schema migrations..."
 bundle exec rake db:migrate
+
+echo "Done!"
