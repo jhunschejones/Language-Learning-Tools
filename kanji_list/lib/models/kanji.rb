@@ -7,6 +7,7 @@ class Kanji < ActiveRecord::Base
   validates :character, presence: true, uniqueness: true, format: { with: KANJI_REGEX }
 
   scope :added, -> { where(status: ADDED_STATUS) }
+  scope :skipped, -> { where(status: SKIPPED_STATUS) }
   scope :jouyou, -> { where(character: JOUYOU_KANJI) }
   scope :non_jouyou, -> { where.not(character: JOUYOU_KANJI) }
 
