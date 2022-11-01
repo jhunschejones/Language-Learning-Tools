@@ -48,6 +48,7 @@ class CLI
         advanced_menu
       when QUIT_OPTION
         puts total_kanji_added_message
+        puts "Exiting...".gray
         exit 0
       end
     end

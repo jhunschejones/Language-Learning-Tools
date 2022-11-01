@@ -1,7 +1,12 @@
 #!/bin/bash
 
+
 # Load up your environment variables
 . ./tmp/.env
+
+clear
+
+echo -e '\033[37mStarting kanji_list...\033[0m'
 
 # Load remote state if a remote state option is configured
 if [ -n "$KANJI_LIST_PCLOUD_FOLDER_ID" ]
@@ -13,7 +18,7 @@ then
 fi
 
 # Run the script
-clear && SCRIPT_ENV=development gtimeout --foreground 90m bundle exec ruby lib/main.rb
+SCRIPT_ENV=development gtimeout --foreground 90m bundle exec ruby lib/main.rb
 
 # Backup state to remote if a remote state option is configured
 if [ -n "$KANJI_LIST_PCLOUD_FOLDER_ID" ]
