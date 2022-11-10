@@ -6,7 +6,17 @@ session = GoogleDrive::Session.from_service_account_key("client_secret.json")
 
 # Get the spreadsheet by its title
 spreadsheet = session.spreadsheet_by_title("Immersion Time Tracking")
-# Get the first worksheet
-worksheet = spreadsheet.worksheets.first
-# Print out the first 6 columns of each row
-worksheet.rows.each { |row| puts row.first(6).join(" | ") }
+
+# Find the worksheet and grab the data
+_, _, total, per_days = spreadsheet
+  .worksheets
+  .select { |worksheet| worksheet.title == "Totals" }
+  .first
+  .rows
+  .select { |row| row[0] == "All immersion" }
+  .first
+
+hours, minutes = total.split(":")
+days_count = per_days.gsub("/ ", "").gsub(" days", "")
+
+puts "#{hours}hrs #{minutes}mins of immersion in #{days_count} days"
