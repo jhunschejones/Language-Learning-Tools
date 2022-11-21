@@ -19,3 +19,5 @@ in/20200902_20221121_Habit_second.csv
 Col 3 sum 75325 :: Row count 1564
 Col 3 sum 75145 :: Row count 1558
 ```
+
+`ruby combine.rb` combines multiple CSVs down into one unique CSV.

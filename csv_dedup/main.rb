@@ -1,8 +1,6 @@
 require "csv"
-require "pry"
 
 Dir["in/*.csv"].each do |filename|
-  # csv_table = CSV.parse(File.read(filename), headers: true)
   all_data = []
   CSV.foreach(filename) { |row| all_data << row }
   checksum = all_data.map { |row| row[2].to_f }.inject(0, :+)
