@@ -21,3 +21,7 @@ Col 3 sum 75145 :: Row count 1558
 ```
 
 `ruby combine.rb` combines multiple CSVs down into one unique CSV.
+
+`ruby just_anki.rb` filters a couple CSVs down to just the anki lines
+
+`ruby just_anki_sorted.rb` combines several CSVs of just anki entries down into one, sorted list
