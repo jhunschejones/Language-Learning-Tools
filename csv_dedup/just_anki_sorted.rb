@@ -20,5 +20,8 @@ CSV.open("./all_anki.csv", "w") do |csv|
   condensed_ordered_data
     .to_a
     .reverse # put newest dates first
-    .each { |(date, time)| csv << [date.strftime("%m/%d/%Y"), time] }
+    .each do |(date, time)|
+      clean_time = time.to_f == time.to_i ? time.to_i : time.to_f.round(2)
+      csv << [date.strftime("%m/%d/%Y"), clean_time]
+    end
 end

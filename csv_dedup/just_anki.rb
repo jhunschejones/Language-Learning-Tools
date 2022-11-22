@@ -20,7 +20,6 @@ end
 
 anki_rows = []
 CSV.foreach("Japanese Study Log - Study Log.csv") do |row|
-
   if row[1] == "Study flashcards"
     # Date,Task name,Minutes,Notes
     date = row[0]
@@ -30,6 +29,22 @@ CSV.foreach("Japanese Study Log - Study Log.csv") do |row|
 end
 
 CSV.open("just_anki/japanese_study_log.csv", "w") do |csv|
+  csv << ["Date", "Time (mins)"]
+  anki_rows.reverse.each { |row| csv << row }
+end
+
+
+anki_rows = []
+CSV.foreach("multitimer.csv") do |row|
+  if row.first == "Study Flashcards"
+    # Name,Date,Seconds,Comment
+    date = row[1][0..11] # "Nov 12, 2022 at 2:53:35 PM"
+    time = row[2].to_f / 60 # This is in seconds in the CSV
+    anki_rows << [Date.strptime(date, "%b %d, %Y").strftime("%m/%d/%Y"), time]
+  end
+end
+
+CSV.open("just_anki/multitimer.csv", "w") do |csv|
   csv << ["Date", "Time (mins)"]
   anki_rows.reverse.each { |row| csv << row }
 end
