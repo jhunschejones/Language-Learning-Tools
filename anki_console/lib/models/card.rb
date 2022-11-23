@@ -4,6 +4,7 @@ class Card < ActiveRecord::Base
 
   belongs_to :note, foreign_key: "nid"
   belongs_to :deck, foreign_key: "did"
+  has_many :reviews, foreign_key: "cid"
 
   scope :suspended, -> { where(queue: -1) }
   scope :not_suspended, -> { where.not(queue: -1) }
