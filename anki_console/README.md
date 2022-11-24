@@ -32,4 +32,7 @@ NoteType.find_by(name: "Japanese 2022 Sentence Card").notes.count
 
 # How many kanji notes have I made?
 NoteType.find_by(name: "Japanese Kanji Note").notes.count
+
+# How many minutes of reviews did I do on 9/27/2020?
+Review.total_minutes_for(day: Date.strptime("9/27/2020", "%m/%d/%Y"))
 ```
