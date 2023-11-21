@@ -4,7 +4,7 @@
 [mpv](https://mpv.io/manual/stable/) is an incredibly powerful media player but requires some configuration to get it set up for active immersion. My intention with this repo is to capture my setup steps so that it's easier to do this all again from scratch.
 
 ### To set up:
-1. `brew install mpv ffmpeg ffprobe`
+1. `brew install mpv ffmpeg fprobe`
 2. `pip3 install ffsubsync` _(requires Python 3, `brew install python`)_
    * https://github.com/smacke/ffsubsync
 3. Download [`mpvatious`](https://github.com/Ajatt-Tools/mpvacious)
