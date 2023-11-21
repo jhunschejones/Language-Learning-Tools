@@ -10,7 +10,7 @@ raise "Invalid directory '#{directory}'" unless File.exist?(directory)
 
 Dir.chdir(directory)
 
-episode_files = Dir.glob("*.mkv")
+episode_files = Dir.glob("*.mkv") + Dir.glob("*.mp4")
 raise "No episodes found" unless episode_files.any?
 subtitle_files = Dir.glob(["*.srt", "*.ass"]).sort
 raise "No subtitle files found" unless subtitle_files.any?
