@@ -39,6 +39,12 @@ trap "trap_ctrlc" 2
 # also call the function on other errors
 trap "trap_ctrlc" ERR
 
+# create ./tmp/.env if it doesn't exist
+if [ ! -f "./tmp/.env" ]
+then
+  touch ./tmp/.env
+fi
+
 bundle install --quiet && \
 . ./tmp/.env && \
 clear && \
