@@ -48,7 +48,7 @@ DEPENDENCIES
   tinify
 
 RUBY VERSION
-   ruby 3.2.0p0
+   ruby 3.3.2p78
 
 BUNDLED WITH
    2.3.7
