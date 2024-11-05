@@ -31,6 +31,7 @@ class Image
           return true
         rescue => e
           log("Unable to tinyify #{filename}: #{e.message}".red)
+          clean_up_temp_file
         end
       end
 
@@ -63,7 +64,10 @@ class Image
       if ENV["USE_TINYPNG"]
         Tinify.from_file(filename).to_file(processed_file_name)
       else
-        FileUtils.mv(ImageOptim.new.optimize_image(image.filename), processed_file_name)
+        optimized_file_name = ImageOptim.new.optimize_image(image.filename)
+        if optimized_file_name.nil?
+          raise ImageOptim::Error, "ImageOptim failed to optimize this image"
+        end
       end
       processed_file_name
     end
