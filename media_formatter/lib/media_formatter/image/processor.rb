@@ -64,10 +64,10 @@ class Image
       if ENV["USE_TINYPNG"]
         Tinify.from_file(filename).to_file(processed_file_name)
       else
-        optimized_file_name = ImageOptim.new.optimize_image(image.filename)
-        if optimized_file_name.nil?
+        unless optimized_file_name = ImageOptim.new.optimize_image(image.filename)
           raise ImageOptim::Error, "ImageOptim failed to optimize this image"
         end
+        FileUtils.mv(optimized_file_name, processed_file_name)
       end
       processed_file_name
     end
